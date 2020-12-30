@@ -1,14 +1,8 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const fortune = require('./lib/fortune')
 
 const app = express()
-
-const fortunes = [
-    'Conquer your fears',
-    'Rivers need springs',
-    `Don't fear what you don't know`,
-    'Whenever possible, keep it simple',
-]
 
 //config handlebars
 app.engine('handlebars', expressHandlebars({
@@ -25,8 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/about', (req, res) => {
-    const randomFortune = fortunes[Math.floor(Math.random()*fortunes.length)]
-    res.render('about', { fortune: randomFortune })
+    res.render('about', { fortune: fortune.getFortune() })
 })
 
 //pg 404 personalizada
